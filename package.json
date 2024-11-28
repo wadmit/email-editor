@@ -2,7 +2,7 @@
   "name": "maily",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --filter=web",
     "dev": "turbo run dev",
     "clean": "turbo run clean",
     "lint": "turbo run lint",
