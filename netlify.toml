@@ -1,3 +1,0 @@
-[build]
-  command = "pnpm turbo run build --filter=web -verbose"
-  publish = "apps/web/.next"
