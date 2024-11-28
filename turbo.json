@@ -16,7 +16,6 @@
       ]
     },
     "web#build": {
-      // override settings for the "build" task for the "web" app
       "dependsOn": [
         "^build"
       ],
