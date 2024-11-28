@@ -24,7 +24,7 @@ pnpm add -D @tiptap/core
 
 ```tsx
 import { useState } from 'react';
-import { Editor } from '@maily-to/core';
+import { Editor } from '../../../packages/core';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
 
 type AppProps = {

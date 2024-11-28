@@ -30,7 +30,7 @@ export async function emailLoginAction(formData: FormData) {
 
   try {
     const response = await axios.post(
-      'https://api-dev.wiseadmit.io/api/v1/dashboard/auth/signin',
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`,
       { email, password }
     );
     cookies().set('accessToken', response.data.accessToken)

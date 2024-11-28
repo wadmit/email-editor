@@ -54,8 +54,8 @@ export function SaveEmail({ data }: { data: { title: string; desc: string } }) {
   const handleSaveTemmpalte = async (content: string) => {
     try {
       await axios.post(
-        'https://api-dev.wiseadmit.io/api/v1/dashboard/templates/email',
-        { name: title, desc, content, editableBody: content },
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/email`,
+        { name: title, desc, content, editableBody: content, variables: [] },
         {
           headers: {
             Authorization: `Bearer ${token}`,

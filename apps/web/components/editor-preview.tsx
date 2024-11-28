@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import type { EditorProps } from '@maily-to/core';
-import { Editor } from '@maily-to/core';
+import { Editor } from '../../../packages/core';
 import { Loader2, X } from 'lucide-react';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
 import { useEditorContext } from '@/stores/editor-store';

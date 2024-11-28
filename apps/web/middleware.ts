@@ -12,7 +12,7 @@ export async function middleware(req) {
   }
 
   try {
-    const response = await axios.get(`https://api-dev.wiseadmit.io/api/v1/dashboard/auth/profile`, {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/profile`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token.value}`,
