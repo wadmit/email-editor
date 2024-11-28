@@ -64,7 +64,7 @@ export function EmailLoginForm() {
         {isPending ? (
           <Loader2 className="h-5 w-5 animate-spin" />
         ) : (
-          'Send magic link'
+          'Show magic'
         )}
       </button>
     </form>

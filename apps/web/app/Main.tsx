@@ -17,39 +17,10 @@ import { render } from '@maily-to/render';
 import { SaveEmail } from '@/components/save-email';
 
 export const metadata: Metadata = {
-  title: 'Playground | Maily',
-  description: 'Try out Maily, the Open-source editor for crafting emails.',
-  twitter: {
-    creator: '@imarikchakma',
-    title: 'Playground | Maily',
-    description: 'Try out Maily, the Open-source editor for crafting emails.',
-    card: 'summary_large_image',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  openGraph: {
-    siteName: 'Maily',
-    title: 'Playground | Maily',
-    description: 'Try out Maily, the Open-source editor for crafting emails.',
-    type: 'website',
-    url: 'https://maily.to',
-    locale: 'en-US',
-    images: {
-      url: '/og-image.png',
-      width: 1200,
-      height: 630,
-      alt: 'Maily Preview',
-    },
-  },
+  title: 'Wise Editor | Maily',
+
+ 
+
 };
 
 const previewEmailSchema = z.object({
