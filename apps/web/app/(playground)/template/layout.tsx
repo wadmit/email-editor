@@ -12,27 +12,28 @@ export default async function PlaygroundLayout(props: PlaygroundLayoutProps) {
   const { children } = props;
 
   const supabase = createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect('/playground');
-  }
+  // if (!user) {
+  //   redirect('/playground');
+  // }
 
-  const mails = await supabase
-    .from('mails')
-    .select('*')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false });
+  // const mails = await supabase
+  //   .from('mails')
+  //   .select('*')
+  //   .eq('user_id', user.id)
+  //   .order('created_at', { ascending: false });
 
-  return (
-    <div className="flex h-screen w-screen items-stretch overflow-hidden">
-      <TemplateSidebar mails={mails.data || []} />
+  // return (
+  //   <div className="flex h-screen w-screen items-stretch overflow-hidden">
+  //     <TemplateSidebar mails={mails.data || []} />
 
-      <div className="grow overflow-y-auto">
-        <div className="mx-auto w-full max-w-[700px] p-5">{children}</div>
-      </div>
-    </div>
-  );
+  //     <div className="grow overflow-y-auto">
+  //       <div className="mx-auto w-full max-w-[700px] p-5">{children}</div>
+  //     </div>
+  //   </div>
+  // );
+  return <></>
 }

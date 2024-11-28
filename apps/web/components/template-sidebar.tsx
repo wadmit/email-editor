@@ -22,21 +22,21 @@ export function TemplateSidebar(props: TemplateSidebarProps) {
   const router = useRouter();
 
   const handleEmailDuplicate = (oldTemplateId: string) => {
-    const template = mails.find((mail) => mail.id === oldTemplateId);
+    // const template = mails.find((mail) => mail.id === oldTemplateId);
 
-    const formData = new FormData();
-    formData.set('templateId', oldTemplateId);
+    // const formData = new FormData();
+    // formData.set('templateId', oldTemplateId);
 
-    toast.promise(duplicateEmailAction(formData), {
-      loading: `Duplicating ${template?.title}...`,
-      success(data) {
-        router.push(`/template/${data.data?.id}`);
-        return 'Template Duplicated';
-      },
-      error(error: Error) {
-        return error.message;
-      },
-    });
+    // toast.promise(duplicateEmailAction(formData), {
+    //   loading: `Duplicating ${template?.title}...`,
+    //   success(data) {
+    //     router.push(`/template/${data.data?.id}`);
+    //     return 'Template Duplicated';
+    //   },
+    //   error(error: Error) {
+    //     return error.message;
+    //   },
+    // });
   };
 
   return (

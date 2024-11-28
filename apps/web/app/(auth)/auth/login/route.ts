@@ -21,28 +21,28 @@ export async function POST(request: NextRequest) {
   const provider = result.data;
   const supabase = createSupabaseServerClient();
 
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider,
-    options: {
-      redirectTo: `${config.appUrl}/auth/callback`,
-      ...(provider === 'google'
-        ? {
-            queryParams: {
-              access_type: 'offline',
-              prompt: 'consent',
-            },
-          }
-        : {}),
-    },
-  });
+  // const { data, error } = await supabase.auth.signInWithOAuth({
+  //   provider,
+  //   options: {
+  //     redirectTo: `${config.appUrl}/auth/callback`,
+  //     ...(provider === 'google'
+  //       ? {
+  //           queryParams: {
+  //             access_type: 'offline',
+  //             prompt: 'consent',
+  //           },
+  //         }
+  //       : {}),
+  //   },
+  // });
 
-  if (!data.url) {
-    return NextResponse.redirect(requestUrl.origin, {
-      status: 301,
-    });
-  }
+  // if (!data.url) {
+  //   return NextResponse.redirect(requestUrl.origin, {
+  //     status: 301,
+  //   });
+  // }
 
-  return NextResponse.redirect(data.url, {
-    status: 301,
-  });
+  // return NextResponse.redirect(data.url, {
+  //   status: 301,
+  // });
 }

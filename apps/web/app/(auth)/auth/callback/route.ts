@@ -10,10 +10,10 @@ export async function GET(request: NextRequest) {
 
   if (code) {
     const supabase = createSupabaseServerClient();
-    const { error } = await supabase.auth.exchangeCodeForSession(code);
-    if (!error) {
-      return NextResponse.redirect(`${origin}${next}`);
-    }
+    // const { error } = await supabase.auth.exchangeCodeForSession(code);
+    // if (!error) {
+    //   return NextResponse.redirect(`${origin}${next}`);
+    // }
   }
 
   return json({ error: 'Invalid code' }, { status: 400 });

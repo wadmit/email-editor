@@ -48,49 +48,51 @@ export default async function TemplatePage(props: TemplatePageProps) {
   const provider = cookieStore.get(MAILY_PROVIDER)?.value;
 
   const supabase = createSupabaseServerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  // const {
+  //   data: { user },
+  // } = await supabase.auth.getUser();
 
-  if (!user) {
-    return redirect('/login');
-  }
+  // if (!user) {
+  //   return redirect('/login');
+  // }
 
-  if (!templateId) {
-    return redirect('/template');
-  }
+  // if (!templateId) {
+  //   return redirect('/template');
+  // }
 
-  const { data: template } = await supabase
-    .from('mails')
-    .select('*')
-    .eq('id', templateId)
-    .eq('user_id', user.id)
-    .single();
+  // const { data: template } = await supabase
+  //   .from('mails')
+  //   .select('*')
+  //   .eq('id', templateId)
+  //   .eq('user_id', user.id)
+  //   .single();
 
-  if (!template) {
-    return redirect('/template');
-  }
+  // if (!template) {
+  //   return redirect('/template');
+  // }
 
-  const { preview_text, title } = template;
-  let { content } = template;
-  content = JSON.parse(content as string);
+  // const { preview_text, title } = template;
+  // let { content } = template;
+  // content = JSON.parse(content as string);
 
   return (
-    <EditorProvider
-      apiKey={apiKey}
-      endpoint={endpoint}
-      provider={provider}
-      // eslint-disable-next-line camelcase, react/jsx-sort-props -- This is a prop
-      previewText={preview_text || ''}
-      subject={title || ''}
-    >
-      <EditorTopbar templateId={templateId} />
-      <EditorPreview
-        config={{
-          autofocus: 'end',
-        }}
-        content={content as JSONContent}
-      />
-    </EditorProvider>
+    <></>
   );
+
+    // <EditorProvider
+    //   apiKey={apiKey}
+    //   endpoint={endpoint}
+    //   provider={provider}
+    //   // eslint-disable-next-line camelcase, react/jsx-sort-props -- This is a prop
+    //   previewText={preview_text || ''}
+    //   subject={title || ''}
+    // >
+    //   <EditorTopbar templateId={templateId} />
+    //   <EditorPreview
+    //     config={{
+    //       autofocus: 'end',
+    //     }}
+    //     content={content as JSONContent}
+    //   />
+    // </EditorProvider>
 }

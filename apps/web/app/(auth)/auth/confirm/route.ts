@@ -13,15 +13,15 @@ export async function GET(request: NextRequest) {
   if (token_hash && type) {
     const supabase = createSupabaseServerClient();
 
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    });
+    // const { error } = await supabase.auth.verifyOtp({
+    //   type,
+    //   token_hash,
+    // });
 
-    if (!error) {
-      // redirect user to specified redirect URL or root of app
-      redirect(next);
-    }
+    // if (!error) {
+    //   // redirect user to specified redirect URL or root of app
+    //   redirect(next);
+    // }
   }
 
   return json({ error: 'Invalid token' }, { status: 400 });
