@@ -66,7 +66,7 @@ export interface RootLayoutProps {
 }
 
 export default async function RootLayout(props: RootLayoutProps) {
-  const { children } = props;
+  const { children } = props as any;
 
   return (
     <html lang="en">
