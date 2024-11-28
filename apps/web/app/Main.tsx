@@ -15,12 +15,10 @@ import { EditorContext, useEditorContext } from '@/stores/editor-store';
 import { shallow } from 'zustand/shallow';
 import { render } from '@maily-to/render';
 import { SaveEmail } from '@/components/save-email';
+import TemplateFile from './TemplateFile';
 
 export const metadata: Metadata = {
   title: 'Wise Editor | Maily',
-
- 
-
 };
 
 const previewEmailSchema = z.object({
@@ -31,26 +29,31 @@ export default function Playground() {
   const [desc, setDesc] = useState('');
 
   return (
-    <main className="mx-auto w-full max-w-[calc(36rem+40px)] px-5">
-      <div className="mt-6 flex flex-row items-center justify-between">
-        <EditorTopbar />
+    <main className="flex flex-row align-center justify-center mt-6 px-2">
+      <div className="flex flex-col justify-between mx-auto w-full max-w-[calc(36rem+40px)] flex-[0.8] px-5">
+        <div className="flex flex-row items-center justify-between">
+          <EditorTopbar />
 
-        <SaveEmail data={{ title, desc }} />
-      </div>
+          <SaveEmail data={{ title, desc }} />
+        </div>
 
-      <div className="mb-4 mt-6 flex flex-col gap-4">
-        <input
-          placeholder="Subject"
-          className="w-full border-none outline-none"
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <textarea
-          placeholder="Description"
-          className="w-full border-none outline-none"
-          onChange={(e) => setDesc(e.target.value)}
-        />
+        <div className="mb-4 mt-6 flex flex-col gap-4">
+          <input
+            placeholder="Subject"
+            className="w-full border-none outline-none"
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <textarea
+            placeholder="Description"
+            className="w-full border-none outline-none"
+            onChange={(e) => setDesc(e.target.value)}
+          />
+        </div>
+        <EditorPreview />
       </div>
-      <EditorPreview />
+      <div className="flex-[0.2]">
+        <TemplateFile/>
+        </div>{' '}
     </main>
   );
 }

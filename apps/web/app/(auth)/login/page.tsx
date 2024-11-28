@@ -25,11 +25,6 @@ export default function LoginPage() {
 
           <EmailLoginForm />
 
-          <div className="flex w-full items-center gap-2 py-6 text-sm text-gray-600">
-            <div className="h-px w-full bg-gray-200" />
-            OR
-            <div className="h-px w-full bg-gray-200" />
-          </div>
 
         </div>
       </div>
