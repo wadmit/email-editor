@@ -3,11 +3,10 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-const TemplateFile = () => {
+const TemplateFile = ({refresh}: {refresh: boolean}) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [copied, setCopied] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
@@ -32,7 +31,7 @@ const TemplateFile = () => {
     };
 
     fetchData();
-  }, []);
+  }, [refresh]);
 
   if (loading) return <p className="text-gray-500">Loading images...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
@@ -62,13 +61,9 @@ const TemplateFile = () => {
             alt={`Image ${index + 1}`}
             className="h-24 w-full rounded object-cover"
           />
-          {/* <p className="mt-2 w-full truncate text-sm text-gray-500">{image}</p> */}
           <div className="absolute left-0 top-0 hidden h-full w-full items-center justify-center bg-black bg-opacity-20 group-hover:flex">
             <p className="text-xs font-bold text-white">Click to Copy</p>
           </div>
-          {/* {copied === image && (
-        <span className="absolute bottom-2 text-green-500 text-xs">Copied!</span>
-      )} */}
         </div>
       ))}
     </div>

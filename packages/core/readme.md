@@ -50,7 +50,7 @@ Slash commands are a way to interact with the editor using `/` followed by a com
 
 ```tsx
 // (Omitted repeated imports)
-import { text, heading1 } from '@maily-to/core/blocks';
+// import { text, heading1 } from '@maily-to/core/blocks';
 
 <Editor
   blocks={[text, heading1]}

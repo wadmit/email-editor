@@ -16,6 +16,7 @@ import { shallow } from 'zustand/shallow';
 import { render } from '@maily-to/render';
 import { SaveEmail } from '@/components/save-email';
 import TemplateFile from './TemplateFile';
+import UploadFile from './UploadFile';
 
 export const metadata: Metadata = {
   title: 'Wise Editor | Maily',
@@ -24,13 +25,19 @@ export const metadata: Metadata = {
 const previewEmailSchema = z.object({
   json: z.string().min(1, 'Please provide a JSON'),
 });
+
 export default function Playground() {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
+  const [refresh, setRefresh] = useState(false);
+
+  const triggerRefresh = () => {
+    setRefresh((prev) => !prev);
+  };
 
   return (
-    <main className="flex flex-row align-center justify-center mt-6 px-2">
-      <div className="flex flex-col justify-between mx-auto w-full max-w-[calc(36rem+40px)] flex-[0.8] px-5">
+    <main className="align-center mt-6 flex flex-row justify-center px-2">
+      <div className="mx-auto flex w-full max-w-[calc(36rem+40px)] flex-[0.8] flex-col justify-between px-5">
         <div className="flex flex-row items-center justify-between">
           <EditorTopbar />
 
@@ -51,9 +58,10 @@ export default function Playground() {
         </div>
         <EditorPreview />
       </div>
-      <div className="flex-[0.2]">
-        <TemplateFile/>
-        </div>{' '}
+      <div className="flex-[0.2] h-1 gap-2 justify-center align-center">
+        <UploadFile onUploadComplete={triggerRefresh} />
+        <TemplateFile refresh={refresh} />
+      </div>
     </main>
   );
 }
