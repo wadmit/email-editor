@@ -9,9 +9,7 @@ import { saveEmailAction } from '@/actions/email';
 import { useServerAction } from '@/utils/use-server-action';
 import { useEditorContext } from '@/stores/editor-store';
 import { catchActionError } from '@/actions/error';
-import { render } from '@maily-to/render';
 import axios from 'axios';
-import { cookies } from 'next/headers';
 
 const getToken = () => {
   

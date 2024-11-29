@@ -1,31 +1,17 @@
 'use client';
 
 import type { Metadata } from 'next';
-import { EditorPreview } from '@/components/editor-preview';
-import { z } from 'zod';
-
 import { EditorTopbar } from '@/components/editor-topbar';
-import { useContext, useState } from 'react';
-import { useServerAction } from '@/utils/use-server-action';
-import { previewEmailAction } from '@/actions/email';
-import { catchActionError } from '@/actions/error';
-import { toast } from 'sonner';
-import axios from 'axios';
-import { EditorContext, useEditorContext } from '@/stores/editor-store';
-import { shallow } from 'zustand/shallow';
-import { render } from '@maily-to/render';
+import { useState } from 'react';
 import { SaveEmail } from '@/components/save-email';
 import TemplateFile from './TemplateFile';
 import UploadFile from './UploadFile';
 import DynamicVariable from './DynamicVariable';
+import { EditorPreview } from '@/components/editor-preview';
 
 export const metadata: Metadata = {
   title: 'Wise Editor | Maily',
 };
-
-const previewEmailSchema = z.object({
-  json: z.string().min(1, 'Please provide a JSON'),
-});
 
 export default function Playground() {
   const [title, setTitle] = useState('');

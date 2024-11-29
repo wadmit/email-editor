@@ -1,13 +1,12 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { Editor, EditorProps } from '../../../packages/core';
+import { useEffect, useState } from 'react';
+import { Editor, EditorProps } from '@maily-to/core';
 import { Loader2, X } from 'lucide-react';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
 import { useEditorContext } from '@/stores/editor-store';
 import { cn } from '@/utils/classname';
 import defaultEditorJSON from '../utils/default-editor-json.json';
-// import { Editor, EditorProps } from '@maily-to/core';
 
 interface EditorPreviewProps {
   className?: string;
@@ -85,12 +84,14 @@ export function EditorPreview(props: EditorPreviewProps) {
             autofocus: false,
             ...defaultConfig,
           }}
+          // contentJson={defaultEditorJSON}
           contentJson={{}}
           onCreate={(e) => {
             setEditor(e);
             setJson(e?.getJSON() || {});
           }}
           onUpdate={(e) => {
+            console.log(e?.getJSON());
             setEditor(e);
             setJson(e?.getJSON() || {});
           }}
