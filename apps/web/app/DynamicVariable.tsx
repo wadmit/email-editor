@@ -39,9 +39,10 @@ const DynamicVariable = ({
       <p className="mb-2 text-center">Lead variables</p>
 
       <ul className="w-48 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-        {availableVariables.map((item) => {
+        {availableVariables.map((item, index) => {
           return (
             <li
+            key={index}
               onClick={() => handleDyamicVariable(item.value)}
               className="w-full cursor-pointer rounded-t-lg border-b border-gray-200 px-4 py-2 dark:border-gray-600"
             >
