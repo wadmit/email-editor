@@ -48,14 +48,23 @@ function SubmitButton(props: SubmitButtonProps) {
   );
 }
 
-export function SaveEmail({ data }: { data: { title: string; desc: string } }) {
-  const { title, desc } = data;
+function replaceVariables(template: string, variableMap: {}) {
+  for (const [key, value] of Object.entries(variableMap)) {
+      const placeholder = `{{${value}}}`;
+      template = template.replace(new RegExp(placeholder, 'g'), `{{${key}}}`);
+  }
+  return template;
+}
+
+export function SaveEmail({ data }: { data: { title: string; desc: string, variables: {} } }) {
+  const { title, desc, variables } = data;
   const token = getToken();
   const handleSaveTemmpalte = async (content: string) => {
     try {
+      const updatedContent= replaceVariables(content, variables);
       await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/email`,
-        { name: title, desc, content, editableBody: content, variables: [] },
+        { name: title, desc, content: updatedContent, editableBody: updatedContent, variables: variables },
         {
           headers: {
             Authorization: `Bearer ${token}`,
