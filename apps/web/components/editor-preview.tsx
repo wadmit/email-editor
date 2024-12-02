@@ -73,7 +73,7 @@ export function EditorPreview(props: EditorPreviewProps) {
             <Loader2 className="animate-spin text-gray-400" />
           </div>
         ) : null}
-        <Editor
+        {/* <Editor
           config={{
             hasMenuBar: false,
             wrapClassName: 'editor-wrap',
@@ -95,7 +95,7 @@ export function EditorPreview(props: EditorPreviewProps) {
             setEditor(e);
             setJson(e?.getJSON() || {});
           }}
-        />
+        /> */}
       </div>
     </div>
   );
