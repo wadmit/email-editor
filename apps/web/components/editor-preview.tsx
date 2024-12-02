@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Editor, EditorProps } from '@maily-to/core';
+// import { Editor, EditorProps } from '@maily-to/core';
 import { Loader2, X } from 'lucide-react';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
 import { useEditorContext } from '@/stores/editor-store';
@@ -11,7 +11,7 @@ import defaultEditorJSON from '../utils/default-editor-json.json';
 interface EditorPreviewProps {
   className?: string;
   content?: JSONContent;
-  config?: Partial<EditorProps['config']>;
+  config?: Partial<any['config']>;
 }
 
 export function EditorPreview(props: EditorPreviewProps) {
