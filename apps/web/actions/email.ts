@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-// import { render } from '@maily-to/render';
+import { render } from '@maily-to/render';
 import { cookies } from 'next/headers';
 import { Resend } from 'resend';
 import {
@@ -36,12 +36,12 @@ export async function previewEmailAction(formData: FormData) {
   const { json, previewText } = result.data;
 
   const content = JSON.parse(json);
-  // const html = await render(content, {
-  //   preview: previewText,
-  // });
+  const html = await render(content, {
+    preview: previewText,
+  });
 
   return {
-    data: "html",
+    data: html,
     error: null,
   };
 }
@@ -118,9 +118,9 @@ export async function sendTestEmailAction(formData: FormData) {
   const { subject, json, previewText, from, replyTo, to } = result.data;
 
   const content = JSON.parse(json);
-  // const html = await render(content, {
-  //   preview: previewText,
-  // });
+  const html = await render(content, {
+    preview: previewText,
+  });
 
   const { provider, apiKey } = configResult.data;
   if (provider === 'resend') {
@@ -134,7 +134,7 @@ export async function sendTestEmailAction(formData: FormData) {
       from,
       replyTo,
       subject,
-      html: "",
+      html,
     });
 
     if (error) {
@@ -206,12 +206,12 @@ export async function saveEmailAction(formData: FormData) {
   const { json } = result.data;
 
   const content = JSON.parse(json);
-  // const html = await render(content, {
-  //   preview: '',
-  // });
+  const html = await render(content, {
+    preview: '',
+  });
 
   return {
-    data: "html",
+    data: html,
     error: null,
   };
 }
