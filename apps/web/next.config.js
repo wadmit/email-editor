@@ -8,8 +8,8 @@ const nextConfig = {
       '@maily-to/core': path.resolve(__dirname, '../../packages/core/dist'),
     };
     config.resolve.modules = [
-      path.resolve(__dirname, 'node_modules'),
-      'node_modules',
+      path.resolve(__dirname, 'node_modules'), // Prioritize local node_modules
+      ...config.resolve.modules,
     ];
     return config;
   }
