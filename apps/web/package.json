@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npm install next && next start",
+    "start": "pnpm add next && next start",
     "lint": "next lint"
   },
   "dependencies": {
