@@ -7,6 +7,10 @@ const nextConfig = {
       ...config.resolve.alias,
       '@maily-to/core': path.resolve(__dirname, '../../packages/core/dist'),
     };
+    config.resolve.modules = [
+      path.resolve(__dirname, 'node_modules'),
+      'node_modules',
+    ];
     return config;
   }
 };
