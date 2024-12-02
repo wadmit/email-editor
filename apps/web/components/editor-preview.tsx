@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-// import { Editor, EditorProps } from '@maily-to/core';
+import { Editor, EditorProps } from '@maily-to/core';
 import { Loader2, X } from 'lucide-react';
 import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
 import { useEditorContext } from '@/stores/editor-store';
@@ -73,7 +73,7 @@ export function EditorPreview(props: EditorPreviewProps) {
             <Loader2 className="animate-spin text-gray-400" />
           </div>
         ) : null}
-        {/* <Editor
+        <Editor
           config={{
             hasMenuBar: false,
             wrapClassName: 'editor-wrap',
@@ -95,7 +95,7 @@ export function EditorPreview(props: EditorPreviewProps) {
             setEditor(e);
             setJson(e?.getJSON() || {});
           }}
-        /> */}
+        />
       </div>
     </div>
   );
