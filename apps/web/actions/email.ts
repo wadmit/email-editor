@@ -10,6 +10,7 @@ import {
   MAILY_PROVIDER,
 } from '@/utils/constants';
 import { UnreachableCaseError } from './error';
+import { replaceRedirectUrl } from '@/utils/replace-json';
 
 const previewEmailSchema = z.object({
   json: z.string().min(1, 'Please provide a JSON'),
@@ -204,6 +205,8 @@ export async function saveEmailAction(formData: FormData) {
   }
 
   const { json } = result.data;
+
+  // const replacedJson = replaceRedirectUrl(JSON.parse(json));
 
   const content = JSON.parse(json);
   const html = await render(content, {

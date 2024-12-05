@@ -91,7 +91,6 @@ export function EditorPreview(props: EditorPreviewProps) {
             setJson(e?.getJSON() || {});
           }}
           onUpdate={(e) => {
-            console.log(e?.getJSON());
             setEditor(e);
             setJson(e?.getJSON() || {});
           }}

@@ -60,7 +60,7 @@ export function SaveEmail({ data }: { data: { title: string; desc: string, varia
   const handleSaveTemmpalte = async (content: string) => {
     try {
       const updatedContent= replaceVariables(content, variables);
-      await axios.post(
+      const response=await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/email`,
         { name: title, desc, content: updatedContent, editableBody: updatedContent, variables: variables },
         {
@@ -69,9 +69,11 @@ export function SaveEmail({ data }: { data: { title: string; desc: string, varia
           }
         }
       );
+      console.log(response)
       alert("Email saved successfully");
       toast.success('Success');
     } catch (error) {
+      console.log(error)
       alert("Something went wrong");
 
       toast.error('Something went wrong');
