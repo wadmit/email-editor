@@ -3,6 +3,7 @@ import { updateSession } from './lib/supabase/middleware';
 import axios from 'axios';
 
 export async function middleware(req) {
+  console.log('hit here')
   const token = req.cookies.get('accessToken') || null; 
   const url = req.nextUrl.clone();
 
@@ -24,6 +25,7 @@ export async function middleware(req) {
       return NextResponse.redirect(url);
     }
   } catch (error) {
+    console.log(error)
     url.pathname = '/login'; // Redirect on error
     return NextResponse.redirect(url);
   }
