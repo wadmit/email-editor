@@ -37,8 +37,10 @@ export function EmailLoginForm() {
 
 
       toast.success('Magic link has been sent to your email');
-      localStorage.setItem('accessToken', accessToken); // Store token if necessary
-      router.push('/'); // Redirect after successful login
+      localStorage.setItem('accessToken', accessToken); 
+      document.cookie = `accessToken=${accessToken}; path=/; SameSite=Strict; Secure`;
+
+      router.replace('/');
     } catch (error) {
       toast.error('An error occurred while logging in.');
       console.error(error);

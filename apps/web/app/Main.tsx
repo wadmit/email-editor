@@ -33,7 +33,6 @@ export default function Playground() {
     });
   };
 
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL!)
   return (
     <main className="align-center mt-6 flex flex-row justify-center px-20">
       <div className="align-center h-1 flex-[0.1] justify-center gap-2">

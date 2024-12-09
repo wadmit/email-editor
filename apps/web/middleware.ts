@@ -6,6 +6,8 @@ export async function middleware(req) {
   const token = req.cookies.get('accessToken') || null; 
   const url = req.nextUrl.clone();
 
+  
+
   if (!token) {
     url.pathname = '/login';
     return NextResponse.redirect(url);
