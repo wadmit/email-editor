@@ -1,39 +1,54 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 import { emailLoginAction } from '@/actions/auth';
 import { catchActionError } from '@/actions/error';
-import { useServerAction } from '@/utils/use-server-action';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { redirect, useRouter } from 'next/navigation';
-
 
 export function EmailLoginForm() {
   const loginFormRef = useRef<HTMLFormElement>(null);
-  const router = useRouter()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isPending, setIsPending] = useState(false);
+  const router = useRouter();
 
-  const [action, isPending] = useServerAction(
-    catchActionError(emailLoginAction),
-    (result) => {
-      const { error,data  } = result!;
-      console.log(data)
-      localStorage.setItem('accessToken',data)
-      if (error) {
-        toast.error(error.message || 'Something went wrong');
-        return;
-      }
- 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const apiCall = async () => {
+    try {
+      setIsPending(true);
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`, {
+        email,
+        password,
+      });
+
+      const {  accessToken } = response.data;
+
+
       toast.success('Magic link has been sent to your email');
-      router.push("/")
+      localStorage.setItem('accessToken', accessToken); // Store token if necessary
+      router.push('/'); // Redirect after successful login
+    } catch (error) {
+      toast.error('An error occurred while logging in.');
+      console.error(error);
+    } finally {
+      setIsPending(false);
     }
-  );
+  };
 
   return (
-    // @ts-ignore
-    <form action={action} className="flex grow flex-col" ref={loginFormRef}>
+    <div className="flex grow flex-col">
       <div>
         <Label className="sr-only" htmlFor="email">
           Email
@@ -42,11 +57,13 @@ export function EmailLoginForm() {
           className="border-gray-300"
           id="email"
           name="email"
+          value={email}
+          onChange={handleEmailChange}
           placeholder="john@example.com"
         />
       </div>
 
-      <div className='mt-2'>
+      <div className="mt-2">
         <Label className="sr-only" htmlFor="password">
           Password
         </Label>
@@ -54,13 +71,16 @@ export function EmailLoginForm() {
           className="border-gray-300"
           id="password"
           name="password"
-          type='password'
+          type="password"
+          value={password}
+          onChange={handlePasswordChange}
         />
       </div>
+
       <button
         className="mt-2 flex h-9 items-center justify-center rounded-md bg-black px-2 py-1 text-sm text-white disabled:cursor-not-allowed disabled:opacity-50"
         disabled={isPending}
-        type="submit"
+        onClick={apiCall}
       >
         {isPending ? (
           <Loader2 className="h-5 w-5 animate-spin" />
@@ -68,6 +88,6 @@ export function EmailLoginForm() {
           'Show magic'
         )}
       </button>
-    </form>
+    </div>
   );
 }
