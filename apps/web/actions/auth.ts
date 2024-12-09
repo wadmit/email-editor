@@ -29,7 +29,6 @@ export async function emailLoginAction(formData: FormData) {
 
   const { email, password } = result.data;
 
-  console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`,
@@ -41,7 +40,6 @@ export async function emailLoginAction(formData: FormData) {
       data: response.data.accessToken,
     };
   } catch (error) {
-    console.log(error)
     return {
       error: {
         message: 'Failed to login',

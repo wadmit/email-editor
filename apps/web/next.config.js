@@ -13,6 +13,15 @@ const nextConfig = {
       ...config.resolve.modules,
     ];
     return config;
+  },
+  experimental: {
+    serverActions: {
+      allowedOrigins: [
+        'http://localhost',
+        'https://wise-email-editor.netlify.app',
+        'https://wise-editor.netlify.app'
+      ]
+    }
   }
 };
 
