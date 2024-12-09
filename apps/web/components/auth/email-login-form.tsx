@@ -19,6 +19,7 @@ export function EmailLoginForm() {
     catchActionError(emailLoginAction),
     (result) => {
       const { error,data  } = result!;
+      console.log(data)
       localStorage.setItem('accessToken',data)
       if (error) {
         toast.error(error.message || 'Something went wrong');

@@ -3,17 +3,19 @@ import { updateSession } from './lib/supabase/middleware';
 import axios from 'axios';
 
 export async function middleware(req) {
-  console.log('hit here')
   const token = req.cookies.get('accessToken') || null; 
   const url = req.nextUrl.clone();
 
-
+  if (!token) {
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
+  }
 
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/profile`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token?.value}`,
+        Authorization: `Bearer ${token.value}`,
       },
     });
 
@@ -22,7 +24,6 @@ export async function middleware(req) {
       return NextResponse.redirect(url);
     }
   } catch (error) {
-    console.log(error)
     url.pathname = '/login'; // Redirect on error
     return NextResponse.redirect(url);
   }
