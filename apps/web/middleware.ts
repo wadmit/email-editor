@@ -7,16 +7,13 @@ export async function middleware(req) {
   const token = req.cookies.get('accessToken') || null; 
   const url = req.nextUrl.clone();
 
-  if (!token) {
-    url.pathname = '/login';
-    return NextResponse.redirect(url);
-  }
+
 
   try {
     const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/profile`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token.value}`,
+        Authorization: `Bearer ${token?.value}`,
       },
     });
 
