@@ -16,7 +16,7 @@ export default function LoginPage() {
         <div className="mx-auto flex w-full flex-col justify-center sm:w-[360px]">
           <div className="mb-10 flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Get in,
+              Get in
             </h1>
             <p className="text-muted-foreground text-sm">
               You can continue with your wiseadmit portal credentials.
