@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Editor, EditorProps } from '@maily-to/core';
 import { Loader2, X } from 'lucide-react';
-import type { Editor as TiptapEditor, JSONContent } from '@tiptap/core';
+import { type Editor as TiptapEditor, type JSONContent, Editor } from '@tiptap/core';
 import { useEditorContext } from '@/stores/editor-store';
 import { cn } from '@/utils/classname';
 import defaultEditorJSON from '../utils/default-editor-json.json';

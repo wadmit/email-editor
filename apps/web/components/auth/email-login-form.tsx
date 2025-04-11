@@ -26,18 +26,21 @@ export function EmailLoginForm() {
   };
 
   const apiCall = async () => {
+    console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
     try {
       setIsPending(true);
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`,
+        {
+          email,
+          password,
+        }
+      );
 
-      const {  accessToken } = response.data;
-
+      const { accessToken } = response.data;
 
       toast.success('Magic link has been sent to your email');
-      localStorage.setItem('accessToken', accessToken); 
+      localStorage.setItem('accessToken', accessToken);
       document.cookie = `accessToken=${accessToken}; path=/; SameSite=Strict; Secure`;
 
       router.replace('/');
