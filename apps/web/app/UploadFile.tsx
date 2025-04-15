@@ -30,8 +30,9 @@ const UploadFile = ({ onUploadComplete }: { onUploadComplete: () => void }) => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            'Content-Type': 'multipart/form-data',
           },
+          withCredentials: true,
         }
       );
       onUploadComplete();

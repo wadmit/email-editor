@@ -65,8 +65,9 @@ export function SaveEmail({ data }: { data: { title: string; desc: string, varia
         { name: title, desc, content: updatedContent, editableBody: updatedContent, variables: variables },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
-          }
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
         }
       );
       console.log(response)
