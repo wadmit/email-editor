@@ -3,6 +3,8 @@ const path = require('path');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  output:"standalone",
+
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -20,7 +22,8 @@ const nextConfig = {
       allowedOrigins: [
         'http://localhost',
         'https://wise-email-editor.netlify.app',
-        'https://wise-editor.netlify.app'
+        'https://wise-editor.netlify.app',
+        "https://emaileditor.wiseadmit.io"
       ]
     }
   }
