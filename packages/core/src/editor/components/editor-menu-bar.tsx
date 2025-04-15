@@ -13,7 +13,7 @@ import {
   UnderlineIcon,
 } from 'lucide-react';
 
-import { EditorProps } from '@/editor';
+import { EditorProps } from '../../editor';
 
 import { BubbleMenuButton } from './bubble-menu-button';
 import { BubbleMenuItem } from './text-menu/text-bubble-menu';

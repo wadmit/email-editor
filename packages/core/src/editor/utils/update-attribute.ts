@@ -8,7 +8,7 @@ export function updateAttribute(
   return ({ commands }) =>
     commands.command(({ tr, state, dispatch }) => {
       if (dispatch) {
-        let lastPos = null;
+        let lastPos:number | null = null;
 
         tr.selection.ranges.forEach((range) => {
           state.doc.nodesBetween(
@@ -38,7 +38,7 @@ export function updateAttributes(
   return ({ commands }) =>
     commands.command(({ tr, state, dispatch }) => {
       if (dispatch) {
-        let lastPos = null;
+        let lastPos:number | null = null;
 
         tr.selection.ranges.forEach((range) => {
           state.doc.nodesBetween(

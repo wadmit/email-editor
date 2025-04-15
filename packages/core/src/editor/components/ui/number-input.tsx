@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 import { type LucideIcon } from 'lucide-react';
 import { SVGIcon } from '../icons/grid-lines';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';

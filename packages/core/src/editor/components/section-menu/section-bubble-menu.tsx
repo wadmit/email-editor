@@ -26,7 +26,7 @@ import { AlignmentSwitch } from '../alignment-switch';
 import { BaseButton } from '../base-button';
 import { BorderColor } from '../icons/border-color';
 import { Select } from '../ui/select';
-import { allowedButtonBorderRadius } from '@/editor/nodes/button/button';
+import { allowedButtonBorderRadius } from '../../nodes/button/button';
 import { MarginIcon } from '../icons/margin-icon';
 import { PaddingIcon } from '../icons/padding-icon';
 import { ColumnsBubbleMenuContent } from '../column-menu/columns-bubble-menu-content';

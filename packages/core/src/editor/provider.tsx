@@ -1,6 +1,6 @@
 'use client';
 
-import { BlockItem } from '@/blocks/types';
+import { BlockItem } from '../blocks/types';
 import { createContext, PropsWithChildren, useContext } from 'react';
 import { DEFAULT_SLASH_COMMANDS } from './extensions/slash-command/default-slash-commands';
 

@@ -1,4 +1,4 @@
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 import { useId } from 'react';
 import { Divider } from './divider';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';

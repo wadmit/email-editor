@@ -1,4 +1,4 @@
-import { BlockItem } from '@/blocks/types';
+import { BlockItem } from '../../../blocks/types';
 import { cn } from '../../utils/classname';
 import { updateScrollView } from '../../utils/update-scroll-view';
 import { Editor } from '@tiptap/core';

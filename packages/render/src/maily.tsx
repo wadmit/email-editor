@@ -591,8 +591,7 @@ export class Maily {
     const type = node.type || '';
 
     if (type in this) {
-      // @ts-expect-error - `this` is not assignable to type 'never'
-      return this[type]?.(node, options) as JSX.Element;
+      return (this as unknown as any)[type]?.(node, options) as JSX.Element;
     }
 
     throw new Error(`Node type "${type}" is not supported.`);
@@ -608,8 +607,7 @@ export class Maily {
       (acc, mark) => {
         const type = mark.type;
         if (type in this) {
-          // @ts-expect-error - `this` is not assignable to type 'never'
-          return this[type]?.(mark, acc) as JSX.Element;
+          return (this as unknown as any)[type]?.(mark, acc) as JSX.Element;
         }
 
         throw new Error(`Mark type "${type}" is not supported.`);

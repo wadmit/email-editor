@@ -1,4 +1,4 @@
-import { AllowedLogoAlignment } from '@/editor/nodes/logo';
+import { AllowedLogoAlignment } from '../../nodes/logo/logo';
 import { Editor, useEditorState } from '@tiptap/react';
 import deepEql from 'fast-deep-equal';
 
