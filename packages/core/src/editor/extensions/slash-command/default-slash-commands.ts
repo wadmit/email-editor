@@ -1,8 +1,8 @@
-import { button, linkCard } from '@/blocks/button';
-import { image, logo } from '@/blocks/image';
-import { columns, divider, forLoop, section, spacer } from '@/blocks/layout';
-import { bulletList, orderedList } from '@/blocks/list';
-import { BlockItem } from '@/blocks/types';
+import { button, linkCard } from '../../../blocks/button';
+import { image, logo } from '../../../blocks/image';
+import { columns, divider, forLoop, section, spacer } from '../../../blocks/layout';
+import { bulletList, orderedList } from '../../../blocks/list';
+import { BlockItem } from '../../../blocks/types';
 import {
   blockquote,
   clearLine,
@@ -12,7 +12,7 @@ import {
   heading2,
   heading3,
   text,
-} from '@/blocks/typography';
+} from '../../../blocks/typography';
 
 export const DEFAULT_SLASH_COMMANDS: BlockItem[] = [
   text,

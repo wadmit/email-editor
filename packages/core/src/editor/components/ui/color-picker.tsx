@@ -4,7 +4,7 @@ import { HexColorPicker, HexColorInput } from 'react-colorful';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { BaseButton } from '../base-button';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 import { ReactNode } from 'react';
 
 type ColorPickerProps = {

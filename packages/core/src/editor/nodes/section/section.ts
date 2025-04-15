@@ -1,4 +1,4 @@
-import { updateAttributes } from '@/editor/utils/update-attribute';
+import { updateAttributes } from '../../utils/update-attribute';
 import { mergeAttributes, Node } from '@tiptap/core';
 
 export const DEFAULT_SECTION_BACKGROUND_COLOR = '#f7f7f7';

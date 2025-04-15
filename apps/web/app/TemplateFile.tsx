@@ -16,8 +16,9 @@ const TemplateFile = ({refresh}: {refresh: boolean}) => {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/email-template/images`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json',
             },
+            withCredentials: true,
           }
         );
 

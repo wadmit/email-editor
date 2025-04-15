@@ -1,5 +1,5 @@
-import { BaseButton } from '@/editor/components/base-button';
-import { cn } from '@/editor/utils/classname';
+import { BaseButton } from '../components/base-button';
+import { cn } from '../utils/classname';
 import { BubbleMenuItem } from './text-menu/text-bubble-menu';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 

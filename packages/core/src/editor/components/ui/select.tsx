@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip';
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 import { LucideIcon } from 'lucide-react';
 import { SVGIcon } from '../icons/grid-lines';
 

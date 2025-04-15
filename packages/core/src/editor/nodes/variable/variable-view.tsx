@@ -2,12 +2,12 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/editor/components/popover';
-import { ShowPopover } from '@/editor/components/show-popover';
-import { Divider } from '@/editor/components/ui/divider';
-import { TooltipProvider } from '@/editor/components/ui/tooltip';
-import { useMailyContext } from '@/editor/provider';
-import { cn } from '@/editor/utils/classname';
+} from '../../components/popover';
+import { ShowPopover } from '../../components/show-popover';
+import { Divider } from '../../components/ui/divider';
+import { TooltipProvider } from '../../components/ui/tooltip';
+import { useMailyContext } from '../../provider';
+import { cn } from '../../utils/classname';
 import { NodeViewProps } from '@tiptap/core';
 import { NodeViewWrapper } from '@tiptap/react';
 import { AlertTriangle, Braces, Pencil } from 'lucide-react';

@@ -9,7 +9,7 @@ import { TooltipProvider } from '../ui/tooltip';
 import { ImageSize } from './image-size';
 import { useImageState } from './use-image-state';
 import { ShowPopover } from '../show-popover';
-import { AllowedLogoSize, allowedLogoSize } from '@/editor/nodes/logo/logo';
+import { AllowedLogoSize, allowedLogoSize } from '../../nodes/logo/logo';
 import { sticky } from 'tippy.js';
 
 export function ImageBubbleMenu(props: EditorBubbleMenuProps) {

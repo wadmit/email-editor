@@ -7,13 +7,13 @@ import {
   addColumnByIndex,
   removeColumnByIndex,
   updateColumnWidth,
-} from '@/editor/utils/columns';
+} from '../../utils/columns';
 import { ShowPopover } from '../show-popover';
 import { ColumnsWidthConfig } from './columns-width-config';
 import { Select } from '../ui/select';
 import { Space, Trash } from 'lucide-react';
 import { BubbleMenuButton } from '../bubble-menu-button';
-import { deleteNode } from '@/editor/utils/delete-node';
+import { deleteNode } from '../../utils/delete-node';
 
 type ColumnsBubbleMenuProps = {
   editor: EditorBubbleMenuProps['editor'];

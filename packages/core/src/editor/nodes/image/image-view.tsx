@@ -1,5 +1,5 @@
-import { cn } from '@/editor/utils/classname';
-import { useEvent } from '@/editor/utils/use-event';
+import { cn } from '../../utils/classname';
+import { useEvent } from '../../utils/use-event';
 import { type NodeViewProps, NodeViewWrapper } from '@tiptap/react';
 import { Ban, ImageOffIcon, Loader2 } from 'lucide-react';
 import { type CSSProperties, useEffect, useRef, useState } from 'react';

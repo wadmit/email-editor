@@ -1,4 +1,4 @@
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 import { CornerDownLeft } from 'lucide-react';
 import { useRef, HTMLAttributes, useMemo, useState } from 'react';
 

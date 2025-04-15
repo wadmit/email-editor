@@ -1,4 +1,4 @@
-import { updateAttributes } from '@/editor/utils/update-attribute';
+import { updateAttributes } from '../../utils/update-attribute';
 import { Node, mergeAttributes } from '@tiptap/core';
 import { v4 as uuid } from 'uuid';
 

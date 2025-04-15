@@ -1,4 +1,4 @@
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 
 type Props = {
   type?: 'horizontal' | 'vertical';

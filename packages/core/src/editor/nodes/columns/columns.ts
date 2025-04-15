@@ -1,5 +1,5 @@
-import { goToColumn } from '@/editor/utils/columns';
-import { updateAttributes } from '@/editor/utils/update-attribute';
+import { goToColumn } from '../../utils/columns';
+import { updateAttributes } from '../../utils/update-attribute';
 import { mergeAttributes } from '@tiptap/core';
 import { Node } from '@tiptap/core';
 import { v4 as uuid } from 'uuid';

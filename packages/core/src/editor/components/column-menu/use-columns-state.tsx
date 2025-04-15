@@ -1,4 +1,4 @@
-import { getColumnCount, getColumnWidths } from '@/editor/utils/columns';
+import { getColumnCount, getColumnWidths } from '../../utils/columns';
 import { Editor, useEditorState } from '@tiptap/react';
 import deepEql from 'fast-deep-equal';
 

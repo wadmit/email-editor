@@ -1,5 +1,5 @@
-import { DEFAULT_TRIGGER_SUGGESTION_CHAR, Variables } from '@/editor/provider';
-import { cn } from '@/editor/utils/classname';
+import { DEFAULT_TRIGGER_SUGGESTION_CHAR, Variables } from '../../provider';
+import { cn } from '../../utils/classname';
 import { ReactRenderer } from '@tiptap/react';
 import { SuggestionOptions } from '@tiptap/suggestion';
 import { ArrowDown, ArrowUp, Braces, CornerDownLeft } from 'lucide-react';

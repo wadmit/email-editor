@@ -1,6 +1,6 @@
 import { BlockItem } from '@/blocks/types';
-import { cn } from '@/editor/utils/classname';
-import { updateScrollView } from '@/editor/utils/update-scroll-view';
+import { cn } from '../../utils/classname';
+import { updateScrollView } from '../../utils/update-scroll-view';
 import { Editor } from '@tiptap/core';
 import { ReactRenderer } from '@tiptap/react';
 import { SuggestionOptions } from '@tiptap/suggestion';

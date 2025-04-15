@@ -1,8 +1,8 @@
 import { mergeAttributes, Node } from '@tiptap/core';
 import { ReactNodeViewRenderer } from '@tiptap/react';
 import { ButtonView } from './button-view';
-import { AllowedLogoAlignment } from '@/editor/nodes/logo';
-import { updateAttributes } from '@/editor/utils/update-attribute';
+import { AllowedLogoAlignment } from '../../nodes/logo/logo';
+import { updateAttributes } from '../../utils/update-attribute';
 import { DEFAULT_SECTION_SHOW_IF_KEY } from '../section/section';
 
 export const DEFAULT_BUTTON_ALIGNMENT: AllowedLogoAlignment = 'left';

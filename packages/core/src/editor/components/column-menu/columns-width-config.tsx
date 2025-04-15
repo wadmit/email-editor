@@ -1,6 +1,6 @@
 import { Columns2, SlidersVertical, Columns3 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
-import { cn } from '@/editor/utils/classname';
+import { cn } from '../../utils/classname';
 
 type ColumnsWidthConfigProps = {
   columnsCount: number;

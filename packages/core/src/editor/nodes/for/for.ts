@@ -1,7 +1,7 @@
 import { mergeAttributes, Node } from '@tiptap/core';
 import { ReactNodeViewRenderer } from '@tiptap/react';
 import { ForView } from './for-view';
-import { updateAttributes } from '@/editor/utils/update-attribute';
+import { updateAttributes } from '../../utils/update-attribute';
 import { DEFAULT_SECTION_SHOW_IF_KEY } from '../section/section';
 
 type ForAttributes = {

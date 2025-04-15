@@ -1,12 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { updateSession } from './lib/supabase/middleware';
 import axios from 'axios';
 
-export async function middleware(req) {
-  const token = req.cookies.get('accessToken') || null; 
+export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-
-  
+  const token = req.cookies.get('ATL')?.value || null;
+  const refreshToken = req.cookies.get('RTL')?.value || null;
 
   if (!token) {
     url.pathname = '/login';
@@ -14,26 +12,57 @@ export async function middleware(req) {
   }
 
   try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/profile`, {
-      method: 'GET',
+    const profileRes = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/profile`, {
       headers: {
-        Authorization: `Bearer ${token.value}`,
+        Cookie: `ATL=${token}; RTL=${refreshToken}`,
       },
+      withCredentials: true,
     });
 
-    if (!response.data.data) {
-      url.pathname = '/login'; 
+    if (!profileRes.data?.data) {
+      url.pathname = '/login';
       return NextResponse.redirect(url);
     }
-  } catch (error) {
-    url.pathname = '/login'; // Redirect on error
+
+    return NextResponse.next();
+
+  } catch (error: any) {
+    const resStatus = error?.response?.status;
+
+    if (resStatus === 401 && refreshToken) {
+      try {
+        // Attempt refresh token
+        await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/refresh-token`, {
+          headers: {
+            Cookie: `RTL=${refreshToken}`,
+          },
+          withCredentials: true,
+        });
+
+        // Retry profile check after refresh
+        const retryProfile = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/profile`, {
+          headers: {
+            Cookie: `ATL=${token}; RTL=${refreshToken}`,
+          },
+          withCredentials: true,
+        });
+
+        if (retryProfile.data?.data) {
+          return NextResponse.next();
+        }
+      } catch (refreshErr) {
+        // Failed refresh — redirect to login
+        url.pathname = '/login';
+        return NextResponse.redirect(url);
+      }
+    }
+
+    // Other cases (network error, etc.)
+    url.pathname = '/login';
     return NextResponse.redirect(url);
   }
-
-  // Continue to the requested route if token is valid
-  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/'], 
+  matcher: ['/((?!api|_next|static|favicon.ico).*)'],
 };

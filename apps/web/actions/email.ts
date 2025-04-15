@@ -1,7 +1,7 @@
 'use server';
 
 import { z } from 'zod';
-import { render } from '@maily-to/render';
+import { render } from '../../../packages/render/src';
 import { cookies } from 'next/headers';
 import { Resend } from 'resend';
 import {

@@ -31,14 +31,17 @@ export function EmailLoginForm() {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`, {
         email,
         password,
+      },{
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true,
       });
-
-      const {  accessToken } = response.data;
 
 
       toast.success('Magic link has been sent to your email');
-      localStorage.setItem('accessToken', accessToken); 
-      document.cookie = `accessToken=${accessToken}; path=/; SameSite=Strict; Secure`;
+      // localStorage.setItem('accessToken', accessToken); 
+      // document.cookie = `accessToken=${accessToken}; path=/; SameSite=Strict; Secure`;
 
       router.replace('/');
     } catch (error) {

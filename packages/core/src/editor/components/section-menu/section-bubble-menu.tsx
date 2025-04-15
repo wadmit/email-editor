@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { ColorPicker } from '../ui/color-picker';
 import { EditorBubbleMenuProps } from '../text-menu/text-bubble-menu';
-import { isTextSelected } from '@/editor/utils/is-text-selected';
+import { isTextSelected } from '../../utils/is-text-selected';
 import { Divider } from '../ui/divider';
 import { BubbleMenuButton } from '../bubble-menu-button';
 import { GridLines } from '../icons/grid-lines';
@@ -32,7 +32,7 @@ import { PaddingIcon } from '../icons/padding-icon';
 import { ColumnsBubbleMenuContent } from '../column-menu/columns-bubble-menu-content';
 import { Popover, PopoverContent, PopoverTrigger } from '../popover';
 import { ShowPopover } from '../show-popover';
-import { deleteNode } from '@/editor/utils/delete-node';
+import { deleteNode } from '../../utils/delete-node';
 
 export function SectionBubbleMenu(props: EditorBubbleMenuProps) {
   const { appendTo, editor } = props;

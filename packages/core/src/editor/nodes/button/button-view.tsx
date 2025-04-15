@@ -1,16 +1,16 @@
-import { AlignmentSwitch } from '@/editor/components/alignment-switch';
-import { BaseButton } from '@/editor/components/base-button';
+import { AlignmentSwitch } from '../../components/alignment-switch';
+import { BaseButton } from '../../components/base-button';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from '@/editor/components/popover';
-import { ColorPicker } from '@/editor/components/ui/color-picker';
-import { Divider } from '@/editor/components/ui/divider';
-import { LinkInputPopover } from '@/editor/components/ui/link-input-popover';
-import { Select } from '@/editor/components/ui/select';
-import { TooltipProvider } from '@/editor/components/ui/tooltip';
-import { cn } from '@/editor/utils/classname';
+} from '../../components/popover';
+import { ColorPicker } from '../../components/ui/color-picker';
+import { Divider } from '../../components/ui/divider';
+import { LinkInputPopover } from '../../components/ui/link-input-popover';
+import { Select } from '../../components/ui/select';
+import { TooltipProvider } from '../../components/ui/tooltip';
+import { cn } from '../../utils/classname';
 import { NodeViewProps, NodeViewWrapper } from '@tiptap/react';
 import { Pencil } from 'lucide-react';
 import {
@@ -18,7 +18,7 @@ import {
   AllowedButtonVariant,
   allowedButtonVariant,
 } from './button';
-import { ShowPopover } from '@/editor/components/show-popover';
+import { ShowPopover } from '../../components/show-popover';
 
 export function ButtonView(props: NodeViewProps) {
   const { node, editor, getPos, updateAttributes } = props;

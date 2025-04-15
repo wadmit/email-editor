@@ -3,7 +3,7 @@ import { useCallback } from 'react';
 import { getRenderContainer } from '../../utils/get-render-container';
 import { sticky } from 'tippy.js';
 import { EditorBubbleMenuProps } from '../text-menu/text-bubble-menu';
-import { isTextSelected } from '@/editor/utils/is-text-selected';
+import { isTextSelected } from '../../utils/is-text-selected';
 import { ColumnsBubbleMenuContent } from './columns-bubble-menu-content';
 
 export function ColumnsBubbleMenu(props: EditorBubbleMenuProps) {

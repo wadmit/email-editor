@@ -1,6 +1,6 @@
-import { useMailyContext } from '@/editor/provider';
-import { cn } from '@/editor/utils/classname';
-import { isTextSelected } from '@/editor/utils/is-text-selected';
+import { useMailyContext } from '../../provider';
+import { cn } from '../../utils/classname';
+import { isTextSelected } from '../../utils/is-text-selected';
 import { BubbleMenu } from '@tiptap/react';
 import { Braces } from 'lucide-react';
 import { useCallback, useMemo, useRef, useState } from 'react';
