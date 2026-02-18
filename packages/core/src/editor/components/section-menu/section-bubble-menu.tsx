@@ -21,7 +21,7 @@ import { Divider } from '../ui/divider';
 import { BubbleMenuButton } from '../bubble-menu-button';
 import { GridLines } from '../icons/grid-lines';
 import { EdgeSpacingControl } from '../ui/edge-spacing-controls';
-import { TooltipProvider } from '../ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../ui/tooltip';
 import { AlignmentSwitch } from '../alignment-switch';
 import { BaseButton } from '../base-button';
 import { BorderColor } from '../icons/border-color';
@@ -182,6 +182,51 @@ export function SectionBubbleMenu(props: EditorBubbleMenuProps) {
           tooltip="Padding"
           className="mly-capitalize"
         />
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className="mly-flex mly-items-center mly-gap-1">
+              <label htmlFor="section-line-height" className="mly-sr-only">
+                Line height
+              </label>
+              <input
+                id="section-line-height"
+                type="number"
+                min={0.5}
+                max={10}
+                step={0.1}
+                placeholder="1.5"
+                className="mly-h-7 mly-w-14 mly-rounded-md mly-border mly-border-slate-200 mly-px-2 mly-text-center mly-text-sm mly-outline-none focus:mly-ring-1 focus:mly-ring-slate-300"
+                value={state.currentLineHeight ?? ''}
+                onChange={(e) => {
+                  const raw = e.target.value.trim();
+                  if (raw === '') {
+                    editor?.commands?.updateSection({ lineHeight: null });
+                    return;
+                  }
+                  const num = parseFloat(raw);
+                  if (!Number.isNaN(num) && num >= 0.5 && num <= 10) {
+                    editor?.commands?.updateSection({ lineHeight: String(num) });
+                  }
+                }}
+                onBlur={(e) => {
+                  const raw = e.target.value.trim();
+                  if (raw === '') {
+                    editor?.commands?.updateSection({ lineHeight: null });
+                    return;
+                  }
+                  const num = parseFloat(raw);
+                  if (!Number.isNaN(num) && num >= 0.5 && num <= 10) {
+                    editor?.commands?.updateSection({ lineHeight: String(num) });
+                  }
+                }}
+              />
+            </span>
+          </TooltipTrigger>
+          <TooltipContent sideOffset={8}>
+            Line height for text in this section (e.g. 1.5). Leave empty for default.
+          </TooltipContent>
+        </Tooltip>
 
         <Divider />
 

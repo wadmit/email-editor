@@ -42,6 +42,9 @@ export const useSectionState = (editor: Editor) => {
         currentPaddingLeft:
           Number(ctx.editor.getAttributes('section')?.paddingLeft) || 0,
 
+        currentLineHeight:
+          ctx.editor.getAttributes('section')?.lineHeight ?? null,
+
         isColumnsActive: ctx.editor.isActive('columns'),
 
         currentShowIfKey: ctx.editor.getAttributes('section')?.showIfKey || '',

@@ -1387,11 +1387,29 @@ export class Maily {
       paddingRight = DEFAULT_SECTION_PADDING_RIGHT,
       paddingBottom = DEFAULT_SECTION_PADDING_BOTTOM,
       paddingLeft = DEFAULT_SECTION_PADDING_LEFT,
+
+      lineHeight,
     } = attrs || {};
 
     const shouldShow = this.shouldShow(node, options);
     if (!shouldShow) {
       return <></>;
+    }
+
+    const columnStyle: Record<string, number | string> = {
+      borderColor,
+      borderWidth,
+      borderStyle: 'solid',
+      backgroundColor,
+      borderRadius,
+
+      paddingTop,
+      paddingRight,
+      paddingBottom,
+      paddingLeft,
+    };
+    if (lineHeight) {
+      columnStyle.lineHeight = lineHeight;
     }
 
     return (
@@ -1405,18 +1423,7 @@ export class Maily {
       >
         <Column
           align={align}
-          style={{
-            borderColor,
-            borderWidth,
-            borderStyle: 'solid',
-            backgroundColor,
-            borderRadius,
-
-            paddingTop,
-            paddingRight,
-            paddingBottom,
-            paddingLeft,
-          }}
+          style={columnStyle}
         >
           {this.getMappedContent(node, {
             ...options,

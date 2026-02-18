@@ -19,6 +19,8 @@ export const DEFAULT_SECTION_PADDING_LEFT = 5;
 
 export const DEFAULT_SECTION_SHOW_IF_KEY = null;
 
+export const DEFAULT_SECTION_LINE_HEIGHT: string | null = null;
+
 type SectionAttributes = {
   borderRadius: number;
   backgroundColor: string;
@@ -36,6 +38,7 @@ type SectionAttributes = {
   paddingBottom: number;
   paddingLeft: number;
 
+  lineHeight: string | null;
   showIfKey: string | null;
 };
 
@@ -249,6 +252,20 @@ export const SectionExtension = Node.create({
         },
       },
 
+      lineHeight: {
+        default: DEFAULT_SECTION_LINE_HEIGHT,
+        parseHTML: (element) =>
+          element?.style?.lineHeight || DEFAULT_SECTION_LINE_HEIGHT,
+        renderHTML: (attributes) => {
+          if (!attributes.lineHeight) {
+            return {};
+          }
+          return {
+            style: `line-height: ${attributes.lineHeight}`,
+          };
+        },
+      },
+
       showIfKey: {
         default: DEFAULT_SECTION_SHOW_IF_KEY,
         parseHTML: (element) => {
@@ -297,7 +314,10 @@ export const SectionExtension = Node.create({
       marginRight = 0,
       marginBottom = 0,
       marginLeft = 0,
+      lineHeight,
     } = HTMLAttributes;
+
+    const tdStyle = `border-style: solid${lineHeight ? `; line-height: ${lineHeight}` : ''}`;
 
     return [
       'table',
@@ -323,7 +343,7 @@ export const SectionExtension = Node.create({
             'td',
             mergeAttributes(HTMLAttributes, {
               'data-type': 'section-cell',
-              style: 'border-style: solid',
+              style: tdStyle,
               class: 'mly-w-full [text-align:revert-layer]',
             }),
             0,

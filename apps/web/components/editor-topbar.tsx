@@ -34,7 +34,6 @@ export function EditorTopbar(props: EditorTopbarProps) {
           <UpdateEmail templateId={templateId} />
         </div>
       )} */}
-
     </div>
   );
 }
