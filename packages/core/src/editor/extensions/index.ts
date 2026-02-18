@@ -14,6 +14,7 @@ import Dropcursor from '@tiptap/extension-dropcursor';
 
 import { FontFamily } from './font-family';
 import { FontSize } from './font-size';
+import { LetterSpacing } from './letter-spacing';
 import { HorizontalRule } from './horizontal-rule';
 import { Footer } from '../nodes/footer';
 import { Spacer } from '../nodes/spacer';
@@ -67,6 +68,7 @@ export function extensions(props: ExtensionsProps) {
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
     FontFamily,
     FontSize,
+    LetterSpacing,
     TextStyle.configure(),
     TextAlign.configure({ types: [Paragraph.name, Heading.name, Footer.name] }),
     HorizontalRule,

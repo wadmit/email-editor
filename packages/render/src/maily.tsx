@@ -761,6 +761,21 @@ export class Maily {
     );
   }
 
+  private letterSpacing(mark: MarkType, text: JSX.Element): JSX.Element {
+    const { attrs } = mark;
+    const letterSpacing = attrs?.letterSpacing;
+    if (!letterSpacing) return text;
+    return (
+      <span
+        style={{
+          letterSpacing,
+        }}
+      >
+        {text}
+      </span>
+    );
+  }
+
   private link(mark: MarkType, text: JSX.Element): JSX.Element {
     const { attrs } = mark;
     let href = attrs?.href || '#';

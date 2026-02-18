@@ -17,6 +17,8 @@ export const useTextMenuState = (editor: Editor) => {
           ctx.editor.getAttributes('fontSize').fontSize || null,
         currentFontSizeMobile:
           ctx.editor.getAttributes('fontSize').fontSizeMobile ?? null,
+        currentLetterSpacing:
+          ctx.editor.getAttributes('letterSpacing').letterSpacing || null,
 
         linkUrl: ctx.editor?.getAttributes('link').href,
         textAlign: (ctx.editor?.isActive({ textAlign: 'left' })

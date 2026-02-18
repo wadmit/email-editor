@@ -406,6 +406,58 @@ export function TextBubbleMenu(props: EditorBubbleMenuProps) {
           </Tooltip>
         </div>
 
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <span className="mly-flex mly-items-center">
+              <label htmlFor="text-letter-spacing" className="mly-sr-only">
+                Letter spacing
+              </label>
+              <input
+                id="text-letter-spacing"
+                type="number"
+                min={-2}
+                max={20}
+                step={0.5}
+                placeholder="0"
+                className="mly-h-7 mly-w-12 mly-rounded-md mly-border mly-border-slate-200 mly-px-1.5 mly-text-center mly-text-sm mly-outline-none focus:mly-ring-1 focus:mly-ring-slate-300"
+                value={
+                  state.currentLetterSpacing != null
+                    ? (() => {
+                        const n = parseFloat(String(state.currentLetterSpacing).replace(/px|em/g, ''));
+                        return Number.isNaN(n) ? '' : n;
+                      })()
+                    : ''
+                }
+                onChange={(e) => {
+                  const raw = e.target.value.trim();
+                  if (raw === '') {
+                    editor?.chain().focus().unsetLetterSpacing().run();
+                    return;
+                  }
+                  const num = parseFloat(raw);
+                  if (!Number.isNaN(num) && num >= -2 && num <= 20) {
+                    editor?.chain().focus().setLetterSpacing(`${num}px`).run();
+                  }
+                }}
+                onBlur={(e) => {
+                  const raw = e.target.value.trim();
+                  if (raw === '') {
+                    editor?.chain().focus().unsetLetterSpacing().run();
+                    return;
+                  }
+                  const num = parseFloat(raw);
+                  if (!Number.isNaN(num) && num >= -2 && num <= 20) {
+                    editor?.chain().focus().setLetterSpacing(`${num}px`).run();
+                  }
+                }}
+              />
+            </span>
+          </TooltipTrigger>
+          <TooltipContent sideOffset={8}>
+            Letter spacing (px). Number only, e.g. 0.5 or 2. Leave empty for default.
+          </TooltipContent>
+        </Tooltip>
+
         <ColorPicker
           color={state.currentTextColor}
           onColorChange={(color) => {
