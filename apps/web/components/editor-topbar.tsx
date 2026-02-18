@@ -9,7 +9,6 @@ import { SendTestEmail } from './send-test-email';
 import { UpdateEmail } from './update-email';
 import { useEditorContext } from '@/stores/editor-store';
 import { SaveEmail } from './save-email';
-import { Save } from 'lucide-react';
 
 type EditorTopbarProps = {
   templateId?: string;

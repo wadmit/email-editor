@@ -12,6 +12,7 @@ import Document from '@tiptap/extension-document';
 import Focus from '@tiptap/extension-focus';
 import Dropcursor from '@tiptap/extension-dropcursor';
 
+import { FontFamily } from './font-family';
 import { HorizontalRule } from './horizontal-rule';
 import { Footer } from '../nodes/footer';
 import { Spacer } from '../nodes/spacer';
@@ -63,6 +64,7 @@ export function extensions(props: ExtensionsProps) {
     Underline,
     LogoExtension,
     Color.configure({ types: [TextStyle.name, ListItem.name] }),
+    FontFamily,
     TextStyle.configure(),
     TextAlign.configure({ types: [Paragraph.name, Heading.name, Footer.name] }),
     HorizontalRule,

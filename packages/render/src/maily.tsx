@@ -410,6 +410,33 @@ export class Maily {
     }
   }
 
+  /**
+   * Returns true if the content uses the given font (e.g. "Inter") in any
+   * fontFamily mark. Used to optionally include webfonts in the email head.
+   */
+  private contentUsesFont(fontName: string): boolean {
+    const nodes = this.content.content || [];
+
+    const checkNode = (node: JSONContent): boolean => {
+      if (node.marks) {
+        for (const mark of node.marks) {
+          if (mark.type === 'fontFamily' && mark.attrs?.fontFamily) {
+            const family = String(mark.attrs.fontFamily);
+            if (family.includes(fontName)) return true;
+          }
+        }
+      }
+      if (node.content) {
+        for (const child of node.content) {
+          if (checkNode(child)) return true;
+        }
+      }
+      return false;
+    };
+
+    return nodes.some((node) => checkNode(node));
+  }
+
   async render(
     options: RenderOptions = DEFAULT_RENDER_OPTIONS
   ): Promise<string> {
@@ -439,20 +466,35 @@ export class Maily {
     });
 
     const { preview } = this.config;
+    const usesInter = this.contentUsesFont('Inter');
 
     const markup = (
       <Html>
         <Head>
-          <Font
-            fallbackFontFamily="sans-serif"
-            fontFamily="Inter"
-            fontStyle="normal"
-            fontWeight={400}
-            webFont={{
-              url: 'https://rsms.me/inter/font-files/Inter-Regular.woff2?v=3.19',
-              format: 'woff2',
-            }}
-          />
+          {usesInter ? (
+            <>
+              <Font
+                fallbackFontFamily="sans-serif"
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight={400}
+                webFont={{
+                  url: 'https://rsms.me/inter/font-files/Inter-Regular.woff2?v=3.19',
+                  format: 'woff2',
+                }}
+              />
+              <Font
+                fallbackFontFamily="sans-serif"
+                fontFamily="Inter"
+                fontStyle="normal"
+                fontWeight={600}
+                webFont={{
+                  url: 'https://rsms.me/inter/font-files/Inter-SemiBold.woff2?v=3.19',
+                  format: 'woff2',
+                }}
+              />
+            </>
+          ) : null}
           <style
             dangerouslySetInnerHTML={{
               __html: `blockquote,h1,h2,h3,img,li,ol,p,ul{margin-top:0;margin-bottom:0}@media only screen and (max-width:425px){.tab-row-full{width:100%!important}.tab-col-full{display:block!important;width:100%!important}.tab-pad{padding:0!important}}`,
@@ -679,6 +721,21 @@ export class Maily {
       <span
         style={{
           color,
+        }}
+      >
+        {text}
+      </span>
+    );
+  }
+
+  private fontFamily(mark: MarkType, text: JSX.Element): JSX.Element {
+    const { attrs } = mark;
+    const fontFamily = attrs?.fontFamily;
+    if (!fontFamily) return text;
+    return (
+      <span
+        style={{
+          fontFamily,
         }}
       >
         {text}

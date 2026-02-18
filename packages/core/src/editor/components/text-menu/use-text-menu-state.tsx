@@ -11,6 +11,8 @@ export const useTextMenuState = (editor: Editor) => {
       return {
         currentTextColor:
           ctx.editor.getAttributes('textStyle').color || DEFAULT_TEXT_COLOR,
+        currentFontFamily:
+          ctx.editor.getAttributes('fontFamily').fontFamily || null,
 
         linkUrl: ctx.editor?.getAttributes('link').href,
         textAlign: (ctx.editor?.isActive({ textAlign: 'left' })
