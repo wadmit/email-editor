@@ -2,7 +2,7 @@
 
 // @ts-ignore
 import { useFormStatus } from 'react-dom';
-import { Eye, Loader2 } from 'lucide-react';
+import { Eye, Loader2, Monitor, Smartphone } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { shallow } from 'zustand/shallow';
@@ -18,6 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
+import { cn } from '@/utils/classname';
 
 interface SubmitButtonProps {
   disabled?: boolean;
@@ -55,6 +56,7 @@ export function PreviewEmail() {
   }, shallow);
 
   const [html, setHtml] = useState<string>('');
+  const [previewViewport, setPreviewViewport] = useState<'desktop' | 'mobile'>('desktop');
   const [action, isPending] = useServerAction(
     catchActionError(previewEmailAction),
     (result) => {
@@ -79,12 +81,54 @@ export function PreviewEmail() {
         </form>
       </DialogTrigger>
       {!isPending ? (
-        <DialogContent className="animation-none z-[99999] min-h-[75vh] w-full min-w-0 max-w-[620px] overflow-hidden p-0 max-[680px]:h-full max-[680px]:rounded-none max-[680px]:border-0 max-[680px]:shadow-none">
+        <DialogContent className="animation-none z-[99999] flex min-h-[75vh] w-full min-w-0 max-w-[620px] flex-col overflow-hidden p-0 max-[680px]:h-full max-[680px]:rounded-none max-[680px]:border-0 max-[680px]:shadow-none">
           <DialogTitle className="sr-only">Preview Email</DialogTitle>
           <DialogDescription className="sr-only">
             Preview of the email that end users will receive
           </DialogDescription>
-          <EmailFrame className="h-full w-full" innerHTML={html} />
+          <div className="flex shrink-0 items-center justify-center gap-0.5 border-b border-gray-200 bg-gray-50 p-1.5">
+            <button
+              type="button"
+              onClick={() => setPreviewViewport('desktop')}
+              className={cn(
+                'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+                previewViewport === 'desktop'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:bg-gray-100'
+              )}
+            >
+              <Monitor className="h-4 w-4 shrink-0" />
+              Desktop
+            </button>
+            <button
+              type="button"
+              onClick={() => setPreviewViewport('mobile')}
+              className={cn(
+                'flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-colors',
+                previewViewport === 'mobile'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:bg-gray-100'
+              )}
+            >
+              <Smartphone className="h-4 w-4 shrink-0" />
+              Mobile
+            </button>
+          </div>
+          <div
+            className={cn(
+              'flex flex-1 items-start justify-center overflow-auto bg-gray-100',
+              previewViewport === 'mobile' && 'py-4'
+            )}
+          >
+            <div
+              className={cn(
+                'h-full min-h-0 overflow-auto bg-white',
+                previewViewport === 'desktop' ? 'w-full' : 'w-[375px] shrink-0 shadow-lg'
+              )}
+            >
+              <EmailFrame className="h-full min-h-[60vh] w-full" innerHTML={html} />
+            </div>
+          </div>
         </DialogContent>
       ) : null}
     </Dialog>

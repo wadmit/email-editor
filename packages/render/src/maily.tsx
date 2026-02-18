@@ -497,7 +497,7 @@ export class Maily {
           ) : null}
           <style
             dangerouslySetInnerHTML={{
-              __html: `blockquote,h1,h2,h3,img,li,ol,p,ul{margin-top:0;margin-bottom:0}@media only screen and (max-width:425px){.tab-row-full{width:100%!important}.tab-col-full{display:block!important;width:100%!important}.tab-pad{padding:0!important}}`,
+              __html: `blockquote,h1,h2,h3,img,li,ol,p,ul{margin-top:0;margin-bottom:0}@media only screen and (max-width:425px){.tab-row-full{width:100%!important}.tab-col-full{display:block!important;width:100%!important}.tab-pad{padding:0!important}.mly-fs-m-10{font-size:10px!important}.mly-fs-m-11{font-size:11px!important}.mly-fs-m-12{font-size:12px!important}.mly-fs-m-13{font-size:13px!important}.mly-fs-m-14{font-size:14px!important}.mly-fs-m-15{font-size:15px!important}.mly-fs-m-16{font-size:16px!important}.mly-fs-m-17{font-size:17px!important}.mly-fs-m-18{font-size:18px!important}.mly-fs-m-19{font-size:19px!important}.mly-fs-m-20{font-size:20px!important}.mly-fs-m-21{font-size:21px!important}.mly-fs-m-22{font-size:22px!important}.mly-fs-m-23{font-size:23px!important}.mly-fs-m-24{font-size:24px!important}.mly-fs-m-25{font-size:25px!important}.mly-fs-m-26{font-size:26px!important}.mly-fs-m-27{font-size:27px!important}.mly-fs-m-28{font-size:28px!important}.mly-fs-m-29{font-size:29px!important}.mly-fs-m-30{font-size:30px!important}.mly-fs-m-31{font-size:31px!important}.mly-fs-m-32{font-size:32px!important}.mly-fs-m-33{font-size:33px!important}.mly-fs-m-34{font-size:34px!important}.mly-fs-m-35{font-size:35px!important}.mly-fs-m-36{font-size:36px!important}.mly-fs-m-37{font-size:37px!important}.mly-fs-m-38{font-size:38px!important}.mly-fs-m-39{font-size:39px!important}.mly-fs-m-40{font-size:40px!important}}`,
             }}
           />
 
@@ -737,6 +737,24 @@ export class Maily {
         style={{
           fontFamily,
         }}
+      >
+        {text}
+      </span>
+    );
+  }
+
+  private fontSize(mark: MarkType, text: JSX.Element): JSX.Element {
+    const { attrs } = mark;
+    const fontSize = attrs?.fontSize;
+    const fontSizeMobile = attrs?.fontSizeMobile;
+    if (!fontSize && !fontSizeMobile) return text;
+    const style: Record<string, string> = {};
+    if (fontSize) style.fontSize = fontSize;
+    const mobileClass = fontSizeMobile ? `mly-fs-m-${fontSizeMobile.replace(/px$/, '')}` : undefined;
+    return (
+      <span
+        style={Object.keys(style).length ? style : undefined}
+        className={mobileClass}
       >
         {text}
       </span>

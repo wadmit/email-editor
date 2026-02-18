@@ -144,7 +144,9 @@ export function TextBubbleMenu(props: EditorBubbleMenuProps) {
 
   const state = useTextMenuState(editor);
   const fontDropdownRef = useRef<HTMLDivElement>(null);
+  const fontSizeDropdownRef = useRef<HTMLDivElement>(null);
   const [fontDropdownOpen, setFontDropdownOpen] = useState(false);
+  const [fontSizeDropdownOpen, setFontSizeDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (!fontDropdownOpen) return;
@@ -159,6 +161,20 @@ export function TextBubbleMenu(props: EditorBubbleMenuProps) {
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [fontDropdownOpen]);
+
+  useEffect(() => {
+    if (!fontSizeDropdownOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        fontSizeDropdownRef.current &&
+        !fontSizeDropdownRef.current.contains(e.target as Node)
+      ) {
+        setFontSizeDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [fontSizeDropdownOpen]);
 
   return (
     <BubbleMenu
@@ -245,6 +261,24 @@ export function TextBubbleMenu(props: EditorBubbleMenuProps) {
                   {option.label}
                 </button>
               ))}
+              <div className="mly-mt-1 mly-border-t mly-border-slate-200 mly-pt-1">
+                <input
+                  type="text"
+                  placeholder="Custom font..."
+                  className="mly-w-full mly-rounded mly-border mly-border-slate-200 mly-px-2 mly-py-1.5 mly-text-sm mly-outline-none focus:mly-ring-1 focus:mly-ring-slate-300"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      const v = (e.target as HTMLInputElement).value.trim();
+                      if (v) {
+                        editor?.chain().focus().setMark('fontFamily', { fontFamily: v }).run();
+                        setFontDropdownOpen(false);
+                      }
+                      (e.target as HTMLInputElement).value = '';
+                    }
+                  }}
+                />
+              </div>
             </div>
           )}
           <Tooltip>
@@ -267,12 +301,108 @@ export function TextBubbleMenu(props: EditorBubbleMenuProps) {
                 >
                   {FONT_FAMILY_OPTIONS.find(
                     (f) => f.value === state.currentFontFamily
-                  )?.label ?? 'Font'}
+                  )?.label ?? (state.currentFontFamily ? state.currentFontFamily : 'Font')}
                 </span>
                 <ChevronDownIcon className="mly-ml-0.5 mly-h-3 mly-w-3 mly-shrink-0 mly-opacity-60" />
               </BaseButton>
             </TooltipTrigger>
             <TooltipContent sideOffset={8}>Font family</TooltipContent>
+          </Tooltip>
+        </div>
+
+        <div ref={fontSizeDropdownRef} className="mly-relative">
+          {fontSizeDropdownOpen && (
+            <div
+              className="mly-absolute mly-bottom-full mly-left-0 mly-z-50 mly-mb-1 mly-w-48 mly-rounded-md mly-border mly-border-slate-200 mly-bg-white mly-p-2 mly-shadow-md"
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <div className="mly-space-y-2">
+                <div>
+                  <label className="mly-mb-0.5 mly-block mly-text-xs mly-font-medium mly-text-slate-600">Desktop (px)</label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={120}
+                    placeholder="e.g. 16"
+                    className="mly-w-full mly-rounded mly-border mly-border-slate-200 mly-px-2 mly-py-1.5 mly-text-sm mly-outline-none focus:mly-ring-1 focus:mly-ring-slate-300"
+                    defaultValue={state.currentFontSize ? state.currentFontSize.replace(/px$/, '') : ''}
+                    onBlur={(e) => {
+                      const raw = e.target.value.trim();
+                      if (raw) {
+                        const num = parseInt(raw, 10);
+                        if (!Number.isNaN(num) && num >= 1 && num <= 120) {
+                          const v = `${num}px`;
+                          editor?.chain().focus().setFontSize(v, state.currentFontSizeMobile ?? undefined).run();
+                        }
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') e.currentTarget.blur();
+                    }}
+                  />
+                </div>
+                <div>
+                  <label className="mly-mb-0.5 mly-block mly-text-xs mly-font-medium mly-text-slate-600">Mobile (px, optional)</label>
+                  <input
+                    type="number"
+                    min={1}
+                    max={120}
+                    placeholder="Same as desktop"
+                    className="mly-w-full mly-rounded mly-border mly-border-slate-200 mly-px-2 mly-py-1.5 mly-text-sm mly-outline-none focus:mly-ring-1 focus:mly-ring-slate-300"
+                    defaultValue={state.currentFontSizeMobile ? state.currentFontSizeMobile.replace(/px$/, '') : ''}
+                    onBlur={(e) => {
+                      const raw = e.target.value.trim();
+                      if (raw) {
+                        const num = parseInt(raw, 10);
+                        if (!Number.isNaN(num) && num >= 1 && num <= 120) {
+                          editor?.chain().focus().setFontSize(state.currentFontSize ?? '', `${num}px`).run();
+                        }
+                      } else {
+                        editor?.chain().focus().setFontSize(state.currentFontSize ?? '', null).run();
+                      }
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') e.currentTarget.blur();
+                    }}
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="mly-w-full mly-rounded mly-border mly-border-slate-200 mly-py-1.5 mly-text-xs mly-font-medium mly-text-slate-600 hover:mly-bg-slate-50"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    editor?.chain().focus().unsetFontSize().run();
+                    setFontSizeDropdownOpen(false);
+                  }}
+                >
+                  Clear size
+                </button>
+              </div>
+            </div>
+          )}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <BaseButton
+                variant="ghost"
+                size="sm"
+                type="button"
+                className="!mly-h-7 mly-shrink-0 mly-px-2"
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  setFontSizeDropdownOpen((open) => !open);
+                }}
+              >
+                <span className="mly-max-w-[72px] mly-truncate mly-text-xs mly-font-medium mly-text-slate-700">
+                  {state.currentFontSize
+                    ? (state.currentFontSizeMobile
+                      ? `${state.currentFontSize.replace(/px$/, '')} / ${state.currentFontSizeMobile.replace(/px$/, '')}`
+                      : state.currentFontSize.replace(/px$/, ''))
+                    : 'Size'}
+                </span>
+                <ChevronDownIcon className="mly-ml-0.5 mly-h-3 mly-w-3 mly-shrink-0 mly-opacity-60" />
+              </BaseButton>
+            </TooltipTrigger>
+            <TooltipContent sideOffset={8}>Font size (px). Responsive: set mobile for small screens.</TooltipContent>
           </Tooltip>
         </div>
 
