@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 
 type SaveMode = 'create' | 'edit' | 'duplicate';
 type VariablesMap = Record<string, string>;
+type EditorContentInput = JSONContent | string;
 
 function getNestedPayload(payload: any): any {
   if (!payload || typeof payload !== 'object') {
@@ -51,7 +52,12 @@ function parseVariables(variables: unknown): VariablesMap {
   return {};
 }
 
-function parseEditableBody(template: any): JSONContent {
+function isHtmlLike(value: string) {
+  const trimmed = value.trim();
+  return trimmed.startsWith('<!DOCTYPE') || trimmed.startsWith('<html') || trimmed.startsWith('<');
+}
+
+function parseEditableBody(template: any): EditorContentInput {
   const candidates = [
     template?.editableBody,
     template?.editable_body,
@@ -64,21 +70,24 @@ function parseEditableBody(template: any): JSONContent {
   for (const candidate of candidates) {
     if (!candidate) continue;
     if (typeof candidate === 'string') {
+      if (isHtmlLike(candidate)) {
+        return candidate;
+      }
       try {
         const parsed = JSON.parse(candidate);
         if (parsed && typeof parsed === 'object') {
-          return parsed as JSONContent;
+          return parsed as EditorContentInput;
         }
       } catch {
         continue;
       }
     }
     if (typeof candidate === 'object') {
-      return candidate as JSONContent;
+      return candidate as EditorContentInput;
     }
   }
 
-  return defaultEditorJSON as JSONContent;
+  return defaultEditorJSON as EditorContentInput;
 }
 
 export default function Playground() {
@@ -86,8 +95,8 @@ export default function Playground() {
   const [desc, setDesc] = useState('');
   const [refresh, setRefresh] = useState(false);
   const [variables, setVariables] = useState<VariablesMap>({});
-  const [editorContent, setEditorContent] = useState<JSONContent>(
-    defaultEditorJSON as JSONContent
+  const [editorContent, setEditorContent] = useState<EditorContentInput>(
+    defaultEditorJSON as EditorContentInput
   );
   const [editorRenderKey, setEditorRenderKey] = useState(0);
   const [isTemplateLoading, setIsTemplateLoading] = useState(false);
@@ -132,7 +141,7 @@ export default function Playground() {
       setTitle('');
       setDesc('');
       setVariables({});
-      setEditorContent(defaultEditorJSON as JSONContent);
+      setEditorContent(defaultEditorJSON as EditorContentInput);
       setEditorRenderKey((prev) => prev + 1);
       return;
     }

@@ -10,7 +10,7 @@ import { Editor } from '@maily-to/core';
 
 interface EditorPreviewProps {
   className?: string;
-  content?: JSONContent;
+  content?: JSONContent | string;
   config?: Partial<any['config']>;
 }
 
@@ -20,6 +20,7 @@ export function EditorPreview(props: EditorPreviewProps) {
     content: defaultContent = defaultEditorJSON,
     config: defaultConfig,
   } = props;
+  const isHtmlContent = typeof defaultContent === 'string';
   const {
     editor,
     previewText,
@@ -84,7 +85,8 @@ export function EditorPreview(props: EditorPreviewProps) {
             autofocus: false,
             ...defaultConfig,
           }}
-          contentJson={defaultContent}
+          contentJson={isHtmlContent ? undefined : defaultContent}
+          contentHtml={isHtmlContent ? defaultContent : undefined}
           onCreate={(e) => {
             setEditor(e);
             setJson(e?.getJSON() || {});
