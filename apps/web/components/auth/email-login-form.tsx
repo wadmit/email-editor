@@ -7,6 +7,7 @@ import { emailLoginAction } from '@/actions/auth';
 import { catchActionError } from '@/actions/error';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { buildBackendUrl } from '@/lib/backend-url';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
@@ -28,7 +29,7 @@ export function EmailLoginForm() {
   const apiCall = async () => {
     try {
       setIsPending(true);
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`, {
+      const response = await axios.post(buildBackendUrl('/dashboard/auth/signin'), {
         email,
         password,
       },{

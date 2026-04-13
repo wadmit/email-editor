@@ -3,6 +3,7 @@
 import { z } from 'zod'; '@/lib/supabase/server';
 import axios from 'axios';
 import { cookies } from 'next/headers';
+import { buildBackendUrl } from '@/lib/backend-url';
 
 const emailLoginSchema = z.object({
   email: z.string().email('Please provide a valid email address'),
@@ -31,7 +32,7 @@ export async function emailLoginAction(formData: FormData) {
 
   try {
     const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/auth/signin`,
+      buildBackendUrl('/dashboard/auth/signin'),
       { email, password }
     );
     cookies().set('accessToken', response.data.accessToken)
@@ -49,5 +50,4 @@ export async function emailLoginAction(formData: FormData) {
   }
 
 }
-
 

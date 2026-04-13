@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
+import { buildBackendUrl } from '@/lib/backend-url';
 
 const UploadFile = ({ onUploadComplete }: { onUploadComplete: () => void }) => {
   const [file, setFile] = useState<File | null>(null);
@@ -26,7 +27,7 @@ const UploadFile = ({ onUploadComplete }: { onUploadComplete: () => void }) => {
     formData.append('file', selectedFile);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/upload-email-template-image?path=email-template/file`,
+        buildBackendUrl('/dashboard/templates/upload-email-template-image?path=email-template/file'),
         formData,
         {
           headers: {

@@ -84,8 +84,7 @@ export function EditorPreview(props: EditorPreviewProps) {
             autofocus: false,
             ...defaultConfig,
           }}
-          // contentJson={defaultEditorJSON}
-          contentJson={{}}
+          contentJson={defaultContent}
           onCreate={(e) => {
             setEditor(e);
             setJson(e?.getJSON() || {});

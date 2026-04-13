@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { buildBackendUrl } from '@/lib/backend-url';
 
 const TemplateFile = ({refresh}: {refresh: boolean}) => {
   const [data, setData] = useState([]);
@@ -13,7 +14,7 @@ const TemplateFile = ({refresh}: {refresh: boolean}) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/email-template/images`,
+          buildBackendUrl('/dashboard/templates/email-template/images'),
           {
             headers: {
               'Content-Type': 'application/json',

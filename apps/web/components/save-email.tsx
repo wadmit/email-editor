@@ -10,14 +10,7 @@ import { useServerAction } from '@/utils/use-server-action';
 import { useEditorContext } from '@/stores/editor-store';
 import { catchActionError } from '@/actions/error';
 import axios from 'axios';
-
-const getToken = () => {
-  
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('accessToken'); // or from cookies
-  }
-  return null;
-};
+import { buildBackendUrl } from '@/lib/backend-url';
 
 interface SubmitButtonProps {
   disabled?: boolean;
@@ -54,15 +47,56 @@ function replaceVariables(template: string, variableMap: {}) {
   return template;
 }
 
-export function SaveEmail({ data }: { data: { title: string; desc: string, variables: {} } }) {
+type SaveMode = 'create' | 'edit' | 'duplicate';
+
+interface SaveEmailProps {
+  data: {
+    title: string;
+    desc: string;
+    variables: {};
+  };
+  mode?: SaveMode;
+  templateId?: string;
+  onSaved?: (savedTemplate: any) => void;
+}
+
+export function SaveEmail(props: SaveEmailProps) {
+  const { data, mode = 'create', templateId, onSaved } = props;
   const { title, desc, variables } = data;
-  const token = getToken();
-  const handleSaveTemmpalte = async (content: string) => {
+  const handleSaveTemplate = async (content: string, editableBody: string) => {
     try {
-      const updatedContent= replaceVariables(content, variables);
-      const response=await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/dashboard/templates/email`,
-        { name: title, desc, content: updatedContent, editableBody: updatedContent, variables: variables },
+      const updatedContent = replaceVariables(content, variables);
+      const normalizedName = title.trim() || 'Untitled template';
+      const payload = {
+        name:
+          mode === 'duplicate' && !/\(copy\)$/i.test(normalizedName)
+            ? `${normalizedName} (Copy)`
+            : normalizedName,
+        desc,
+        content: updatedContent,
+        editableBody,
+        variables,
+      };
+
+      if (mode === 'edit' && templateId) {
+        const response = await axios.patch(
+          buildBackendUrl(`/dashboard/templates/email/${templateId}`),
+          payload,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+          }
+        );
+        onSaved?.(response.data);
+        toast.success('Template updated successfully');
+        return;
+      }
+
+      const response = await axios.post(
+        buildBackendUrl('/dashboard/templates/email'),
+        payload,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -70,14 +104,10 @@ export function SaveEmail({ data }: { data: { title: string; desc: string, varia
           withCredentials: true,
         }
       );
-      console.log(response)
-      alert("Email saved successfully");
-      toast.success('Success');
+      onSaved?.(response.data);
+      toast.success('Template saved successfully');
     } catch (error) {
-      console.log(error)
-      alert("Something went wrong");
-
-      toast.error('Something went wrong');
+      toast.error('Something went wrong while saving template');
     }
   };
 
@@ -90,7 +120,7 @@ export function SaveEmail({ data }: { data: { title: string; desc: string, varia
         toast.error(error.message || 'Something went wrong');
         return;
       }
-      await handleSaveTemmpalte(data);
+      await handleSaveTemplate(data, JSON.stringify(json) || '{}');
     }
   );
 
